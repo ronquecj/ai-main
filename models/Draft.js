@@ -24,7 +24,6 @@ class Draft {
   }
 
   renderContentAI() {
-    
     const aiResHTML = `
     <div class="response">
        <p class="question-ai">
@@ -38,20 +37,18 @@ class Draft {
        >
    </div>
     `;
-    
     this.aiResParent.insertAdjacentHTML('beforeend', aiResHTML);
-    
   }
 
   renderContentHistory() {
     const historyHTML = `
     <div class="history-content" >
         <div class="q-number-container">
-        <p class="q-number">Q${this.qNumber}</p>
+        <p class="q-number">Q${this.qNumber + 1}</p>
         </div>
         <div class="question-container">
         <button class="question" data-n="${
-          this.qNumber - 1
+          Number(this.qNumber)
         }">${this.questionJSON.slice(0, 45)}${
       this.questionJSON.length > 45 ? '...' : ' '
     }</button>

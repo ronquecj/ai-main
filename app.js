@@ -2,6 +2,8 @@
 
 import Draft from './models/Draft.js';
 import Continue from './models/Continue.js';
+import LocalStorage from './models/LocalStorage.js';
+import History from './models/RenderHistory.js';
 import LoadEvent from './utils/LoadEvent.js';
 import SpeakUtils from './utils/SpeakUtils.js';
 import ParentLimit from './utils/ParentLimit.js';
@@ -17,8 +19,8 @@ const btnStop = document.querySelector('.stop-generating');
 const draftCollections = [];
 const continueCollections = [];
 let greetings = 'Good';
-let questionCounter = 1;
-let continueCounter = 0;
+let continueCounter = localStorage.length;
+let questionCounter = localStorage.length;
 
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -29,6 +31,40 @@ const parentUtil = new ParentLimit(aiResponseParent);
 const recognition = new SpeechRecognition();
 
 loadEvent.load();
+
+let storedHistory = [];
+let orHis = {};
+let historyDataStorage = [];
+
+for (let n of Object.entries(localStorage)) {
+  storedHistory.push(n);
+}
+
+const orderedHistory = storedHistory.sort(
+  (a, b) => Number(a[0].slice(7)) - Number(b[0].slice(7))
+);
+
+orderedHistory.forEach((el) => {
+  const [key, val] = el;
+  Object.assign(orHis, { [`${key}`]: `${val}` });
+});
+
+for (let key of Object.values(orHis)) {
+  const h = JSON.parse(key);
+  const HISTORY = h.history;
+
+  const historyData = new History(
+    HISTORY.qNum,
+    HISTORY.question,
+    HISTORY.q,
+    HISTORY.a,
+    HISTORY.cont,
+    historyDataStorage
+  );
+
+  historyData.getLocal();
+  historyDataStorage.push(historyData);
+}
 
 btnSpeak.addEventListener('click', (e) => {
   e.preventDefault();
@@ -262,6 +298,15 @@ btnSpeak.addEventListener('click', (e) => {
             draft.renderContentHistory();
             draft.renderContentLinks();
 
+            const store = new LocalStorage(
+              continueCounter + 1,
+              transcript.toUpperCase(),
+              transcript.toUpperCase(),
+              resultData,
+              data.organic[0].link
+            );
+
+            store.setLocal();
             continueCounter += 1;
 
             if (
