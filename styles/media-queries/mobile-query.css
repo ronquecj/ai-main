@@ -25,6 +25,7 @@
   .history-container {
     /* display: none; */
     width: 33.3%;
+    background-color: #343541 !important;
   }
 
   .team-name {
@@ -86,7 +87,7 @@
     font-size: 11px;
   }
   .ai-response-container {
-    width: 100%;
+    width: 100% !important;
   }
 
   .response {

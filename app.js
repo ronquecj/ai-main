@@ -30,6 +30,24 @@ const loadEvent = new LoadEvent(greetings);
 const parentUtil = new ParentLimit(aiResponseParent);
 const recognition = new SpeechRecognition();
 
+document.querySelector('.link-btn').addEventListener('click', () => {
+  const linksParent = document.querySelector(
+    '.link-content-container'
+  );
+  const responseParent = document.querySelector(
+    '.ai-response-container'
+  );
+  const widthSize = linksParent.getAttribute('class');
+
+  linksParent.classList.toggle('hidden');
+  responseParent.setAttribute('style', 'width: 70% !important');
+
+  if (!widthSize.includes('hidden')) {
+    responseParent.removeAttribute('style');
+    responseParent.setAttribute('style', 'width: 85% !important');
+  }
+});
+
 loadEvent.load();
 
 let storedHistory = [];
@@ -84,7 +102,7 @@ btnSpeak.addEventListener('click', (e) => {
       method: 'post',
       url: 'https://google.serper.dev/search/',
       headers: {
-        'X-API-KEY': '71d9d549aeb814fa205100ed9fae50dbb9b603dd',
+        'X-API-KEY': 'aa095710e8068cabfa85aa0340f66390ebc4c0f9',
         'Content-Type': 'application/json',
       },
       data: data,

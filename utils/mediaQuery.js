@@ -27,17 +27,21 @@ const handleViewportChange = (event) => {
       aiContainer.classList.add('hidden');
       linkContent.style.width = '0%';
       linkContent.style.display = 'none';
-      historyContent.style.width = '100%';
+      historyContent.setAttribute('style', 'width: 100% !important');
       historyContent.style.display = 'block';
+      document.querySelectorAll('.q-number').forEach((el) => {
+        el.style.fontSize = '16px';
+      });
     }
   });
 
   btnLink.addEventListener('click', (e) => {
     if (event.matches) {
+      linkContent.classList.remove('hidden');
       aiContainer.classList.add('hidden');
       historyContent.style.width = '0%';
       historyContent.style.display = 'none';
-      linkContent.style.width = '100%';
+      linkContent.setAttribute('style', 'width: 100% !important');
       linkContent.style.display = 'block';
     }
   });
@@ -50,7 +54,6 @@ const handleViewportChange = (event) => {
     historyContent.style.display = 'none';
     btnReturn.style.display = 'flex';
   } else {
-
     aiContainer.classList.remove('hidden');
     btnReturn.style.display = 'none';
     linkContent.style.width = '27%';

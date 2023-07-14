@@ -29,12 +29,14 @@ class Draft {
        <p class="question-ai">
       ${this.questionJSON}
        </p>
-       <p class="answer">
-       ${this.answerJSON}
-       </p>
-       <a href="${this.continueReading}" target="_blank" class="continue"
-       >continue reading...</a
-       >
+       <div class="qns">
+        <p class="answer">
+        ${this.answerJSON}
+        </p>
+        <a href="${this.continueReading}" target="_blank" class="continue"
+        >continue reading...</a
+        >
+       </div>
    </div>
     `;
     this.aiResParent.insertAdjacentHTML('beforeend', aiResHTML);
@@ -110,7 +112,7 @@ class Draft {
     <div class="link-content">
         <div class="link-container">
             <a href="${link}" class="link" target="_blank">
-            ${link.slice(0, 45)}${link.length > 45 ? '...' : ' '}
+            ${link.slice(0, 30)}${link.length > 30 ? '...' : ' '}
             </a>
         </div>
      </div>

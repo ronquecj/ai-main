@@ -47,9 +47,6 @@ class LoadEvent {
            <p class="question-ai">
            ${this.greetings}!
            </p>
-           <p class="answer">
-       
-           </p>
        </div>
         `;
       aiResParent.insertAdjacentHTML('beforeend', aiResHTML);
